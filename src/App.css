@@ -1,0 +1,51 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  color: #f0f0f0;
+  background-color: #0f0f0f;
+}
+
+.container { padding: 20px; max-width: 800px; margin: 0 auto; }
+h1 { text-align: center; color: #ff9d00; }
+
+/* Status */
+.status-board { display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+.card { border: 1px solid #333; border-radius: 8px; padding: 15px; width: 150px; }
+.card.idle { background: #1a3b1a; border-color: #2e6b2e; }
+.card.busy { background: #3b1a1a; border-color: #6b2e2e; }
+.dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; background: #0f0; }
+.busy .dot { background: #f00; }
+
+/* Tabs */
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+.tabs button {
+    background: #222; color: #888; border: 1px solid #333; flex: 1; max-width: 200px; padding: 10px; cursor: pointer;
+}
+.tabs button.active {
+    background: #ff9d00; color: #000; border-color: #ff9d00; font-weight: bold;
+}
+
+/* Workspace */
+.workspace { background: #151515; padding: 20px; border-radius: 8px; border: 1px solid #333; }
+
+textarea, input[type="text"] {
+    width: 100%; background: #222; color: white; border: 1px solid #444; 
+    padding: 10px; border-radius: 4px; margin-bottom: 10px;
+    font-family: inherit;
+}
+
+.controls { display: flex; gap: 10px; margin-bottom: 15px; }
+
+.btn-primary { background: #ff9d00; color: black; width: 100%; font-weight: bold; border: none; padding: 10px; cursor: pointer;}
+.btn-primary:disabled { background: #553300; color: #888; cursor: not-allowed; }
+
+.btn-small { width: auto; padding: 5px 10px; background: #444; color: white; border: none; cursor: pointer; border-radius: 4px;}
+
+/* File List */
+.file-list { margin-top: 15px; max-height: 400px; overflow-y: auto; }
+.file-row { 
+    display: flex; align-items: center; gap: 10px; 
+    background: #222; padding: 10px; margin-bottom: 5px; border-radius: 4px; 
+}
+.file-info { width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9em; color: #aaa; }
+
+.logs { margin-top: 20px; text-align: center; color: #666; font-family: monospace; }
