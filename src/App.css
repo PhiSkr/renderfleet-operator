@@ -4,48 +4,90 @@
   background-color: #0f0f0f;
 }
 
-.container { padding: 20px; max-width: 800px; margin: 0 auto; }
-h1 { text-align: center; color: #ff9d00; }
+.container { padding: 20px; max-width: 900px; margin: 0 auto; }
+h1 { text-align: center; color: #ff9d00; margin-bottom: 20px; }
 
-/* Status */
+/* Status Board */
 .status-board { display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
-.card { border: 1px solid #333; border-radius: 8px; padding: 15px; width: 150px; }
-.card.idle { background: #1a3b1a; border-color: #2e6b2e; }
-.card.busy { background: #3b1a1a; border-color: #6b2e2e; }
-.dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; background: #0f0; }
-.busy .dot { background: #f00; }
+.card { border: 1px solid #333; border-radius: 8px; padding: 15px; width: 140px; background: #111; }
+.card.idle { border-color: #2e6b2e; }
+.card.busy { border-color: #6b2e2e; }
+.dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.card.idle .dot { background: #0f0; box-shadow: 0 0 5px #0f0; }
+.card.busy .dot { background: #f00; box-shadow: 0 0 5px #f00; }
 
-/* Tabs */
-.tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+/* Navigation Tabs */
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
 .tabs button {
-    background: #222; color: #888; border: 1px solid #333; flex: 1; max-width: 200px; padding: 10px; cursor: pointer;
+    background: transparent; color: #888; border: none; flex: 1; padding: 10px; cursor: pointer; font-size: 1.1em;
+    border-bottom: 2px solid transparent; transition: all 0.2s;
 }
-.tabs button.active {
-    background: #ff9d00; color: #000; border-color: #ff9d00; font-weight: bold;
+.tabs button:hover { color: #ccc; }
+.tabs button.active { color: #ff9d00; border-bottom-color: #ff9d00; font-weight: bold; }
+
+/* Workspace Area */
+.workspace { background: #151515; padding: 20px; border-radius: 8px; border: 1px solid #333; min-height: 400px; }
+
+/* Review Layout (Split Screen) */
+.review-layout { display: flex; gap: 20px; height: 500px; }
+
+/* Sidebar (Job List) */
+.sidebar {
+    width: 220px; background: #1a1a1a; padding: 10px; border-radius: 4px; border: 1px solid #333;
+    display: flex; flex-direction: column;
+}
+.sidebar h3 { margin-top: 0; font-size: 1em; color: #aaa; text-align: center; }
+.job-list { overflow-y: auto; flex: 1; margin-top: 10px; }
+.job-item {
+    padding: 10px; cursor: pointer; border-bottom: 1px solid #2a2a2a; font-size: 0.85em;
+    word-break: break-all; color: #ccc; transition: background 0.2s;
+}
+.job-item:hover { background: #2a2a2a; }
+.job-item.active { background: #ff9d00; color: #000; font-weight: bold; border-radius: 4px; }
+
+/* Gallery (Images) */
+.gallery { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.gallery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+.gallery h3 { margin: 0; font-size: 1.2em; }
+
+.global-prompt-mini { margin-bottom: 15px; }
+.global-prompt-mini input {
+    width: 100%; background: #222; border: 1px solid #444; color: white; padding: 8px; border-radius: 4px;
 }
 
-/* Workspace */
-.workspace { background: #151515; padding: 20px; border-radius: 8px; border: 1px solid #333; }
-
-textarea, input[type="text"] {
-    width: 100%; background: #222; color: white; border: 1px solid #444; 
-    padding: 10px; border-radius: 4px; margin-bottom: 10px;
-    font-family: inherit;
+.image-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;
+    overflow-y: auto; padding-right: 5px; flex: 1;
 }
 
-.controls { display: flex; gap: 10px; margin-bottom: 15px; }
-
-.btn-primary { background: #ff9d00; color: black; width: 100%; font-weight: bold; border: none; padding: 10px; cursor: pointer;}
-.btn-primary:disabled { background: #553300; color: #888; cursor: not-allowed; }
-
-.btn-small { width: auto; padding: 5px 10px; background: #444; color: white; border: none; cursor: pointer; border-radius: 4px;}
-
-/* File List */
-.file-list { margin-top: 15px; max-height: 400px; overflow-y: auto; }
-.file-row { 
-    display: flex; align-items: center; gap: 10px; 
-    background: #222; padding: 10px; margin-bottom: 5px; border-radius: 4px; 
+.img-card {
+    position: relative; border: 2px solid transparent; cursor: pointer; border-radius: 6px; overflow: hidden;
+    background: #000; transition: transform 0.1s;
 }
-.file-info { width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9em; color: #aaa; }
+.img-card:hover { transform: scale(1.02); border-color: #555; }
+.img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.logs { margin-top: 20px; text-align: center; color: #666; font-family: monospace; }
+.img-card.selected { border-color: #ff9d00; box-shadow: 0 0 10px rgba(255, 157, 0, 0.4); }
+.img-card.selected::after {
+    content: "✅"; position: absolute; top: 5px; right: 5px; font-size: 1.2em;
+    text-shadow: 0 0 5px black;
+}
+
+/* Buttons & Inputs */
+.btn-primary {
+    background: #ff9d00; color: black; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer;
+    border-radius: 4px; font-size: 1em; transition: background 0.2s;
+}
+.btn-primary:hover { background: #ffb700; }
+.btn-primary:disabled { background: #444; color: #888; cursor: not-allowed; }
+
+.btn-small {
+    padding: 4px 8px; background: #333; border: 1px solid #444; color: white; cursor: pointer; font-size: 0.8em; border-radius: 3px;
+}
+.btn-small:hover { background: #444; }
+
+textarea {
+    width: 100%; background: #222; color: white; border: 1px solid #444; padding: 10px; border-radius: 4px; font-family: inherit;
+}
+
+.logs { margin-top: 20px; text-align: center; color: #666; font-family: monospace; font-size: 0.9em; }
